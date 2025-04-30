@@ -36,8 +36,8 @@ public class Utilisateur {
 
     private LocalDate dateInscription = LocalDate.now();
 
-    private String role = "utilisateur"; // Par défaut : "utilisateur"
+    private String role = "administrateur"; // Par défaut : "utilisateur"
 
-    private boolean actif = true; // Par défaut actif
+   // private boolean actif = true; // Par défaut actif
     
 }
