@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "utilisateur")
@@ -12,7 +14,6 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Utilisateur {
 
     @Id
@@ -36,8 +37,14 @@ public class Utilisateur {
 
     private LocalDate dateInscription = LocalDate.now();
 
-    private String role = "administrateur"; // Par défaut : "utilisateur"
+    // Rôle par défaut : UTILISATEUR (tu peux créer un compte admin manuellement)
+    private String role = "UTILISATEUR";
 
-   // private boolean actif = true; // Par défaut actif
-    
+    // Relation avec les annonces créées par l'utilisateur
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    private List<Annonce> annonces;
+
+    // Préparation pour les favoris (quand tu créeras l'entité Favori)
+    // @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    // private List<Favori> favoris;
 }
