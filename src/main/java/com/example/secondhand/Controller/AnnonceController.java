@@ -47,5 +47,22 @@ public class AnnonceController {
         annonceService.supprimerAnnonce(id);
         return ResponseEntity.noContent().build();
     }
+
+        // ✅ Liste des annonces d'un utilisateur
+        @GetMapping("/utilisateur/{id}")
+        public List<Annonce> getAnnoncesParUtilisateur(@PathVariable Long id) {
+            return annonceService.getAnnoncesParUtilisateur(id);
+        }
+    
+        // ✅ Approuver une annonce (admin)
+        @PutMapping("/{id}/approuver")
+        public ResponseEntity<String> approuverAnnonce(@PathVariable Long id) {
+            boolean approuvee = annonceService.approuverAnnonce(id);
+            if (approuvee) {
+                return ResponseEntity.ok("Annonce approuvée avec succès.");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }
     
 }
