@@ -45,6 +45,6 @@ public class Utilisateur {
     private List<Annonce> annonces;
 
     // Préparation pour les favoris (quand tu créeras l'entité Favori)
-    // @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
-    // private List<Favori> favoris;
+     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+     private List<Favori> favoris;
 }
