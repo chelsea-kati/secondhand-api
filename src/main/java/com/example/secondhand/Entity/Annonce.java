@@ -1,9 +1,7 @@
 package com.example.secondhand.Entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-
 import java.time.LocalDate;
 
 @Entity
@@ -18,15 +16,17 @@ public class Annonce {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Le titre est obligatoire")
     private String titre;
 
-    @NotBlank(message = "La description est obligatoire")
     private String description;
 
     private double prix;
 
     private LocalDate datePublication = LocalDate.now();
+
+    private String categorie;
+
+    private String localisation;
 
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
