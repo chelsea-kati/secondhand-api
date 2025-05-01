@@ -26,6 +26,8 @@ public class Annonce {
 
     private LocalDate datePublication = LocalDate.now();
 
+    private boolean approuvee = false;
+
     private String categorie;
 
     private String localisation;
