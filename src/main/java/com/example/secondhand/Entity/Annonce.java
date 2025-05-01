@@ -3,6 +3,7 @@ package com.example.secondhand.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "annonce")
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Annonce {
 
     @Id
@@ -28,6 +30,7 @@ public class Annonce {
 
     private String localisation;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
     private Utilisateur utilisateur;
