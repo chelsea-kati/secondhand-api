@@ -26,6 +26,10 @@ public class UtilisateurService {
     public Optional<Utilisateur> getUtilisateurParId(Long id) {
         return utilisateurRepository.findById(id);
     }
+    public Utilisateur getUtilisateurById(Long id) {
+        return utilisateurRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'id : " + id));
+    }
 
     public void supprimerUtilisateur(Long id) {
         utilisateurRepository.deleteById(id);
