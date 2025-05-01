@@ -39,6 +39,22 @@ public class AnnonceService {
             return null;
         }
     }
+    // ✅ Obtenir toutes les annonces d'un utilisateur
+    public List<Annonce> getAnnoncesParUtilisateur(Long utilisateurId) {
+        return annonceRepository.findByUtilisateurId(utilisateurId);
+    }
+
+    // ✅ Approuver une annonce (admin)
+    public boolean approuverAnnonce(Long id) {
+        Optional<Annonce> annonceOpt = annonceRepository.findById(id);
+        if (annonceOpt.isPresent()) {
+            Annonce annonce = annonceOpt.get();
+            annonce.setApprouvee(true);
+            annonceRepository.save(annonce);
+            return true;
+        }
+        return false;
+    }
 
     public void supprimerAnnonce(Long id) {
         annonceRepository.deleteById(id);
