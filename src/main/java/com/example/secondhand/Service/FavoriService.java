@@ -1,21 +1,44 @@
 package com.example.secondhand.Service;
 
+import com.example.secondhand.Entity.Annonce;
 import com.example.secondhand.Entity.Favori;
+import com.example.secondhand.Entity.Utilisateur;
+import com.example.secondhand.Repository.AnnonceRepository;
 import com.example.secondhand.Repository.FavoriRepository;
+import com.example.secondhand.Repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-
-
 public class FavoriService {
+
     @Autowired
     private FavoriRepository favoriRepository;
 
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    private AnnonceRepository annonceRepository;
+
+    // ✅ Ajouter un favori avec entités correctement reliées
     public Favori ajouterFavori(Favori favori) {
-        return favoriRepository.save(favori);
+        Long utilisateurId = favori.getUtilisateur().getId();
+        Long annonceId = favori.getAnnonce().getId();
+
+        Utilisateur utilisateur = utilisateurRepository.findById(utilisateurId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+
+        Annonce annonce = annonceRepository.findById(annonceId)
+                .orElseThrow(() -> new RuntimeException("Annonce introuvable"));
+
+        Favori nouveauFavori = new Favori();
+        nouveauFavori.setUtilisateur(utilisateur);
+        nouveauFavori.setAnnonce(annonce);
+
+        return favoriRepository.save(nouveauFavori);
     }
 
     public List<Favori> getFavorisParUtilisateur(Long utilisateurId) {
@@ -25,5 +48,4 @@ public class FavoriService {
     public void supprimerFavori(Long id) {
         favoriRepository.deleteById(id);
     }
-    
 }
