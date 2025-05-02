@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,5 +47,6 @@ public class Utilisateur {
 
     // Préparation pour les favoris (quand tu créeras l'entité Favori)
      @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+     @JsonManagedReference
      private List<Favori> favoris;
 }
