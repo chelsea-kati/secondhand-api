@@ -1,6 +1,7 @@
 package com.example.secondhand.Entity;
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "favori")
@@ -17,7 +18,7 @@ public class Favori {
     @ManyToOne
     private Utilisateur utilisateur;
     //Un utilisateur peut ajouter plusieurs annonces en favori → @OneToMany
-
+    @JsonIgnore
     @ManyToOne
     private Annonce annonce;
     //Une annonce peut être ajoutée en favori par plusieurs utilisateurs → @ManyToOne
