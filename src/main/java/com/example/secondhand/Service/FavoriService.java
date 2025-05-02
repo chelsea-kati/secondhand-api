@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-
-
 public class FavoriService {
+
     @Autowired
     private FavoriRepository favoriRepository;
 
@@ -25,5 +24,4 @@ public class FavoriService {
     public void supprimerFavori(Long id) {
         favoriRepository.deleteById(id);
     }
-    
 }

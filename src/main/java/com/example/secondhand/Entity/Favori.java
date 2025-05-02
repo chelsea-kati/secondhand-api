@@ -14,7 +14,7 @@ public class Favori {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonIgnore
+   // @JsonIgnore
     @ManyToOne
     private Utilisateur utilisateur;
     //Un utilisateur peut ajouter plusieurs annonces en favori → @OneToMany
