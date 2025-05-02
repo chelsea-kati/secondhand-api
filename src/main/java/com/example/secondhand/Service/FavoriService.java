@@ -23,10 +23,18 @@ public class FavoriService {
     @Autowired
     private AnnonceRepository annonceRepository;
 
-    // ✅ Ajouter un favori avec entités correctement reliées
+    // ✅ Ajouter un favori avec entités correctement chargées
     public Favori ajouterFavori(Favori favori) {
+        if (favori.getUtilisateur() == null || favori.getAnnonce() == null) {
+            throw new IllegalArgumentException("Utilisateur ou annonce est manquant dans la requête");
+        }
+
         Long utilisateurId = favori.getUtilisateur().getId();
         Long annonceId = favori.getAnnonce().getId();
+
+        if (utilisateurId == null || annonceId == null) {
+            throw new IllegalArgumentException("L'id de l'utilisateur ou de l'annonce est null");
+        }
 
         Utilisateur utilisateur = utilisateurRepository.findById(utilisateurId)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
@@ -41,10 +49,12 @@ public class FavoriService {
         return favoriRepository.save(nouveauFavori);
     }
 
+    // ✅ Obtenir tous les favoris d'un utilisateur
     public List<Favori> getFavorisParUtilisateur(Long utilisateurId) {
         return favoriRepository.findByUtilisateurId(utilisateurId);
     }
 
+    // ✅ Supprimer un favori par son ID
     public void supprimerFavori(Long id) {
         favoriRepository.deleteById(id);
     }
