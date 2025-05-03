@@ -14,27 +14,36 @@ public class FavoriService {
     @Autowired
     private FavoriRepository favoriRepository;
 
+    // Ajouter un favori (en évitant les doublons)
     public Favori ajouterFavori(Favori favori) {
-        // return favoriRepository.save(favori);
-                // Vérifier si le favori existe déjà pour cet utilisateur et cette annonce
-                Optional<Favori> existingFavori = favoriRepository
+        Optional<Favori> existingFavori = favoriRepository
                 .findByUtilisateurIdAndAnnonceId(favori.getUtilisateur().getId(), favori.getAnnonce().getId());
-        
+
         if (existingFavori.isPresent()) {
-            // Si le favori existe déjà, ne pas l'ajouter à nouveau
             return existingFavori.get();
         } else {
-            // Sinon, enregistrer le nouveau favori
             return favoriRepository.save(favori);
         }
     }
-    
 
+    // Récupérer les favoris d’un utilisateur
     public List<Favori> getFavorisParUtilisateur(Long utilisateurId) {
         return favoriRepository.findByUtilisateurId(utilisateurId);
     }
 
+    // Supprimer un favori par son ID
     public void supprimerFavori(Long id) {
         favoriRepository.deleteById(id);
+    }
+
+    // ✅ Supprimer une annonce spécifique des favoris d’un utilisateur
+    public void supprimerFavoriParUtilisateurEtAnnonce(Long utilisateurId, Long annonceId) {
+        Optional<Favori> favori = favoriRepository.findByUtilisateurIdAndAnnonceId(utilisateurId, annonceId);
+        favori.ifPresent(favoriRepository::delete);
+    }
+
+    // ✅ Vérifier si une annonce est en favori pour un utilisateur
+    public boolean estEnFavori(Long utilisateurId, Long annonceId) {
+        return favoriRepository.findByUtilisateurIdAndAnnonceId(utilisateurId, annonceId).isPresent();
     }
 }

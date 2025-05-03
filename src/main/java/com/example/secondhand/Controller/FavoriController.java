@@ -34,5 +34,12 @@ public class FavoriController {
         favoriService.supprimerFavori(id);
         return ResponseEntity.noContent().build();
     }
+    // Supprimer une annonce spécifique des favoris d’un utilisateur
+@DeleteMapping("/utilisateur/{utilisateurId}/annonce/{annonceId}")
+public ResponseEntity<Void> supprimerFavoriParUtilisateurEtAnnonce(@PathVariable Long utilisateurId,
+                                                                   @PathVariable Long annonceId) {
+    favoriService.supprimerFavoriParUtilisateurEtAnnonce(utilisateurId, annonceId);
+    return ResponseEntity.noContent().build();
+}
     
 }
