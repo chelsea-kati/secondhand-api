@@ -61,5 +61,9 @@ public class AnnonceService {
     public void supprimerAnnonce(Long id) {
         annonceRepository.deleteById(id);
     }
+    public List<Annonce> getAnnoncesApprouvees() {
+        return annonceRepository.findByApprouveeTrue();
+    }
+    
 
 }

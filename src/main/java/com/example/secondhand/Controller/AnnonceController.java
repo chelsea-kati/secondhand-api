@@ -64,5 +64,10 @@ public class AnnonceController {
                 return ResponseEntity.notFound().build();
             }
         }
+        // ✅ Liste des annonces approuvees par l'admin
+        @GetMapping("/approuvees")
+public List<Annonce> getAnnoncesApprouvees() {
+    return annonceService.getAnnoncesApprouvees();
+}
     
 }

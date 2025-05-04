@@ -9,4 +9,6 @@ import java.util.*;
 public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
     // Déclarez ici des méthodes personnalisées si nécessaire
     List<Annonce> findByUtilisateurId(Long utilisateurId);
+    List<Annonce> findByApprouveeTrue();
+
 }
