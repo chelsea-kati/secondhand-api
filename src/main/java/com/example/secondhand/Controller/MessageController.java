@@ -3,6 +3,7 @@ import com.example.secondhand.Entity.Message;
 import com.example.secondhand.Entity.Utilisateur;
 import com.example.secondhand.Service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,5 +38,12 @@ public class MessageController {
     public void supprimerMessage(@PathVariable Long id) {
         messageService.supprimerMessage(id);
     }
+    //Lier un message à une annonce (facultatif)
+    @PostMapping("/envoyer")
+public ResponseEntity<Message> envoyerMessageAvecAnnonce(@RequestBody Message message,
+                                                         @RequestParam(required = false) Long annonceId) {
+    Message messageCree = messageService.envoyerMessage(message, annonceId);
+    return ResponseEntity.ok(messageCree);
+}
     
 }
