@@ -41,5 +41,10 @@ public ResponseEntity<Void> supprimerFavoriParUtilisateurEtAnnonce(@PathVariable
     favoriService.supprimerFavoriParUtilisateurEtAnnonce(utilisateurId, annonceId);
     return ResponseEntity.noContent().build();
 }
-    
+@DeleteMapping("/utilisateur/{utilisateurId}")
+public ResponseEntity<?> supprimerTousLesFavoris(@PathVariable Long utilisateurId) {
+    favoriService.supprimerTousLesFavorisParUtilisateur(utilisateurId);
+    return ResponseEntity.ok("Tous les favoris de l'utilisateur ont été supprimés.");
+}
+
 }

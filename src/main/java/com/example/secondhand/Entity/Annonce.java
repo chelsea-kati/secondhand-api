@@ -3,7 +3,9 @@ package com.example.secondhand.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "annonce")
@@ -32,7 +34,7 @@ public class Annonce {
 
     private String localisation;
 
-    @JsonIgnore
+    @JsonBackReference // Ajoute cette annotation pour éviter une boucle infinie
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
     private Utilisateur utilisateur;

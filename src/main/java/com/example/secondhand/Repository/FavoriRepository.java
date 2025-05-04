@@ -10,5 +10,6 @@ import java.util.Optional;
         List<Favori> findByUtilisateurId(Long utilisateurId);
           // Ajout de la méthode pour vérifier l'existence d'un favori avec utilisateur_id et annonce_id
     Optional<Favori> findByUtilisateurIdAndAnnonceId(Long utilisateurId, Long annonceId);
+    void deleteByUtilisateurId(Long utilisateurId);
     
 }
