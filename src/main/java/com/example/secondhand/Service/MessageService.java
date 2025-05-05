@@ -58,14 +58,39 @@ public class MessageService {
         messageRepository.deleteById(id);
     }
 
-    public Message envoyerMessage(Message message, Long annonceId) {
-    if (annonceId != null) {
-        Annonce annonce = annonceRepository.findById(annonceId)
+//     public Message envoyerMessage(Message message, Long annonceId) {
+//     if (annonceId != null) {
+//         Annonce annonce = annonceRepository.findById(annonceId)
+//             .orElseThrow(() -> new IllegalArgumentException("Annonce non trouvée"));
+//         message.setAnnonce(annonce);
+//     }
+
+//     message.setDateEnvoi(new Date());
+//     return messageRepository.save(message);
+// }
+public Message envoyerMessage(Message message, Long annonceId) {
+    Utilisateur expediteur = utilisateurRepository.findById(message.getExpediteur().getId())
+        .orElseThrow(() -> new IllegalArgumentException("Expéditeur non trouvé"));
+
+    Utilisateur destinataire = utilisateurRepository.findById(message.getDestinataire().getId())
+        .orElseThrow(() -> new IllegalArgumentException("Destinataire non trouvé"));
+
+    // Vérification de l'annonce si elle est présente
+    if (message.getAnnonce() != null) {
+        Annonce annonce = annonceRepository.findById(message.getAnnonce().getId())
             .orElseThrow(() -> new IllegalArgumentException("Annonce non trouvée"));
+
+        if (!annonce.isApprouvee()) {
+            throw new IllegalStateException("Impossible d'envoyer un message : l'annonce n'est pas encore approuvée.");
+        }
+
         message.setAnnonce(annonce);
     }
 
+    message.setExpediteur(expediteur);
+    message.setDestinataire(destinataire);
     message.setDateEnvoi(new Date());
+
     return messageRepository.save(message);
 }
 }
