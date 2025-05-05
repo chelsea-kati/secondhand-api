@@ -20,7 +20,7 @@ public class MessageController {
         return messageService.envoyerMessage(message);
     }
 
-    @GetMapping("/reçus/{destinataireId}")
+    @GetMapping("/recus/{destinataireId}")
     public List<Message> voirMessagesRecus(@PathVariable Long destinataireId) {
         Utilisateur destinataire = new Utilisateur(); 
         destinataire.setId(destinataireId);
