@@ -6,7 +6,6 @@ import com.example.secondhand.Entity.Utilisateur;
 import com.example.secondhand.Repository.AnnonceRepository;
 import com.example.secondhand.Repository.CommentaireRepository;
 import com.example.secondhand.Repository.UtilisateurRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,39 +14,50 @@ import java.util.Optional;
 @Service
 public class CommentaireService {
 
-    @Autowired
-    private CommentaireRepository commentaireRepository;
+    private final CommentaireRepository commentaireRepository;
+    private final UtilisateurRepository utilisateurRepository;
+    private final AnnonceRepository annonceRepository;
 
-    @Autowired
-    private UtilisateurRepository utilisateurRepository;
+    public CommentaireService(CommentaireRepository commentaireRepository,
+                               UtilisateurRepository utilisateurRepository,
+                               AnnonceRepository annonceRepository) {
+        this.commentaireRepository = commentaireRepository;
+        this.utilisateurRepository = utilisateurRepository;
+        this.annonceRepository = annonceRepository;
+    }
 
-    @Autowired
-    private AnnonceRepository annonceRepository;
+    public Commentaire ajouterCommentaire(Commentaire commentaire) {
+        // Vérification utilisateur
+        Long utilisateurId = commentaire.getUtilisateur().getId();
+        Utilisateur utilisateur = utilisateurRepository.findById(utilisateurId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
-    public Commentaire ajouterCommentaire(Commentaire commentaire, Long utilisateurId, Long annonceId, Long parentId) {
-        Optional<Utilisateur> utilisateurOpt = utilisateurRepository.findById(utilisateurId);
-        Optional<Annonce> annonceOpt = annonceRepository.findById(annonceId);
+        // Vérification annonce
+        Long annonceId = commentaire.getAnnonce().getId();
+        Annonce annonce = annonceRepository.findById(annonceId)
+                .orElseThrow(() -> new RuntimeException("Annonce introuvable"));
 
-        if (utilisateurOpt.isPresent() && annonceOpt.isPresent()) {
-            commentaire.setUtilisateur(utilisateurOpt.get());
-            commentaire.setAnnonce(annonceOpt.get());
-
-            if (parentId != null) {
-                Optional<Commentaire> parentCommentaire = commentaireRepository.findById(parentId);
-                parentCommentaire.ifPresent(commentaire::setParent);
+        // Si le commentaire est une réponse à un autre commentaire
+        if (commentaire.getParent() != null && commentaire.getParent().getId() != null) {
+            Optional<Commentaire> parent = commentaireRepository.findById(commentaire.getParent().getId());
+            if (parent.isEmpty()) {
+                throw new RuntimeException("Commentaire parent introuvable");
             }
-
-            return commentaireRepository.save(commentaire);
+            commentaire.setParent(parent.get());
         }
 
-        throw new RuntimeException("Utilisateur ou Annonce non trouvé.");
+        commentaire.setUtilisateur(utilisateur);
+        commentaire.setAnnonce(annonce);
+
+        return commentaireRepository.save(commentaire);
     }
 
     public List<Commentaire> getCommentairesParAnnonce(Long annonceId) {
         return commentaireRepository.findByAnnonceId(annonceId);
     }
 
-    public void supprimerCommentaire(Long id) {
-        commentaireRepository.deleteById(id);
+    public Commentaire getCommentaire(Long id) {
+        return commentaireRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Commentaire introuvable"));
     }
 }
