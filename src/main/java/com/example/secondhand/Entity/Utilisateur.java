@@ -39,7 +39,7 @@ public class Utilisateur {
     private LocalDate dateInscription = LocalDate.now();
 
     // Rôle par défaut : UTILISATEUR (tu peux créer un compte admin manuellement)
-    private String role = "UTILISATEUR";
+    private String role ;
 
     // Relation avec les annonces créées par l'utilisateur
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
