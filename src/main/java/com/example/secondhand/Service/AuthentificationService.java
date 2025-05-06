@@ -1,7 +1,7 @@
 package com.example.secondhand.Service;
 import com.example.secondhand.Entity.Utilisateur;
 import com.example.secondhand.Repository.UtilisateurRepository;
-import com.example.secondhand.Security.JwtService;
+import com.example.secondhand.Service.JwtService;
 import com.example.secondhand.dto.AuthenticationRequest;
 import com.example.secondhand.dto.AuthenticationResponse;
 import com.example.secondhand.dto.RegisterRequest;
