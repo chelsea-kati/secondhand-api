@@ -30,4 +30,5 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "annonce_id", nullable = true)
     private Annonce annonce;
+    
 }

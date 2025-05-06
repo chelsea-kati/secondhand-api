@@ -35,12 +35,18 @@ public class Commentaire {
     private Annonce annonce;
 
     // ➕ Réponse au commentaire (relation récursive)
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
-    private Commentaire parentCommentaire;
+    // @JsonBackReference
+    // @ManyToOne
+    // @JoinColumn(name = "parent_id")
+    // private Commentaire parentCommentaire;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "parentCommentaire", cascade = CascadeType.ALL)
     private List<Commentaire> reponses;
+    
+    // ➕ Réponse au commentaire (relation récursive)
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Commentaire parent;  // Ajout de la relation parent
 }
