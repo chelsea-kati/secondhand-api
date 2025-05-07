@@ -1,40 +1,61 @@
 package com.example.secondhand.Security;
-import com.example.secondhand.Service.CustomUserDetailsService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-
+import com.example.secondhand.Service.CustomUserDetailsService;
 
 @Configuration
-@EnableMethodSecurity // ← active @PreAuthorize, @Secured, etc.
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    
+
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final CustomUserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                // .csrf().disable()
-                .csrf(csrf -> csrf.disable())   
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .userDetailsService(userDetailsService)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                // Public
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/annonces/approuvees").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/annonces/*").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/commentaires/annonce/*").permitAll()
+
+                // UTILISATEUR
+                .requestMatchers(HttpMethod.POST,   "/api/annonces/**").hasRole("UTILISATEUR")
+                .requestMatchers(HttpMethod.PUT,    "/api/annonces/*").hasRole("UTILISATEUR")
+                .requestMatchers(HttpMethod.DELETE, "/api/annonces/*").hasRole("UTILISATEUR")
+                .requestMatchers("/api/favoris/**").hasRole("UTILISATEUR")
+                .requestMatchers(HttpMethod.POST,   "/api/commentaires/**").hasRole("UTILISATEUR")
+                .requestMatchers(HttpMethod.DELETE, "/api/commentaires/*").hasRole("UTILISATEUR")
+
+                // ADMIN
+                .requestMatchers(HttpMethod.PUT,    "/api/annonces/*/approuver").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/annonces/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/favoris/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/commentaires/**").hasRole("ADMIN")
+
+                // Toutes les autres requêtes nécessitent authentification
+                .anyRequest().authenticated()
+            )
+            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .userDetailsService(userDetailsService)
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
 
     @Bean
