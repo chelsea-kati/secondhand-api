@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+//@Builder
 public class Utilisateur implements org.springframework.security.core.userdetails.UserDetails {
 
     @Id
