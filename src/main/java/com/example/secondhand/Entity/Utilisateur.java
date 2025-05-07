@@ -15,8 +15,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Builder
-public class Utilisateur {
+@Builder
+public class Utilisateur implements org.springframework.security.core.userdetails.UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +34,7 @@ public class Utilisateur {
     private String motDePasse;
 
     private String telephone;
-
     private String adresse;
-
     private LocalDate dateInscription = LocalDate.now();
 
     @Enumerated(EnumType.STRING)
@@ -47,4 +45,43 @@ public class Utilisateur {
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
     private List<Favori> favoris;
+
+    // ===== UserDetails methods =====
+
+    @Override
+    public java.util.Collection<? extends org.springframework.security.core.GrantedAuthority> getAuthorities() {
+        return java.util.List.of(
+            new org.springframework.security.core.authority.SimpleGrantedAuthority("ROLE_" + this.role.name())
+        );
+    }
+
+    @Override
+    public String getPassword() {
+        return this.motDePasse;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
