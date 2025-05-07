@@ -1,10 +1,10 @@
 package com.example.secondhand.Entity;
 
+import com.example.secondhand.Enum.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,6 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+//@Builder
 public class Utilisateur {
 
     @Id
@@ -38,15 +39,12 @@ public class Utilisateur {
 
     private LocalDate dateInscription = LocalDate.now();
 
-    // Rôle par défaut : UTILISATEUR (tu peux créer un compte admin manuellement)
-    private String role ;
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.UTILISATEUR;
 
-    // Relation avec les annonces créées par l'utilisateur
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
     private List<Annonce> annonces;
 
-    // Préparation pour les favoris (quand tu créeras l'entité Favori)
-     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
-     @JsonManagedReference
-     private List<Favori> favoris;
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    private List<Favori> favoris;
 }
