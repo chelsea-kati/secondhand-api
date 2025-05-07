@@ -43,10 +43,14 @@ public class AuthentificationService {
             new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
-        Utilisateur utilisateur = utilisateurRepository.findByEmail(request.getEmail());
-        if (utilisateur == null) {
-            throw new RuntimeException("Utilisateur non trouvé");
-        }
+        // Utilisateur utilisateur = utilisateurRepository.findByEmail(request.getEmail());
+        // if (utilisateur == null) {
+        //     throw new RuntimeException("Utilisateur non trouvé");
+        // }
+        Utilisateur utilisateur = utilisateurRepository
+    .findByEmail(request.getEmail())
+    .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec cet email : " + request.getEmail()));
+
 
         String jwtToken = jwtService.generateToken(utilisateur.getEmail());
         return new AuthenticationResponse(jwtToken);

@@ -1,5 +1,5 @@
 package com.example.secondhand.Service;
-import com.example.secondhand.Entity.Utilisateur;
+//import com.example.secondhand.Entity.Utilisateur;
 import com.example.secondhand.Repository.UtilisateurRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
