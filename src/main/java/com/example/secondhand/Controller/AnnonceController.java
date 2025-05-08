@@ -4,6 +4,7 @@ import com.example.secondhand.Entity.Annonce;
 import com.example.secondhand.Service.AnnonceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,26 +49,28 @@ public class AnnonceController {
         return ResponseEntity.noContent().build();
     }
 
-        // ✅ Liste des annonces d'un utilisateur
-        @GetMapping("/utilisateur/{id}")
-        public List<Annonce> getAnnoncesParUtilisateur(@PathVariable Long id) {
-            return annonceService.getAnnoncesParUtilisateur(id);
+    // ✅ Liste des annonces d'un utilisateur
+    @GetMapping("/utilisateur/{id}")
+    public List<Annonce> getAnnoncesParUtilisateur(@PathVariable Long id) {
+        return annonceService.getAnnoncesParUtilisateur(id);
+    }
+
+    // ✅ Approuver une annonce (admin)
+    @PutMapping("/{id}/approuver")
+    public ResponseEntity<String> approuverAnnonce(@PathVariable Long id) {
+        boolean approuvee = annonceService.approuverAnnonce(id);
+        if (approuvee) {
+            return ResponseEntity.ok("Annonce approuvée avec succès.");
+        } else {
+            return ResponseEntity.notFound().build();
         }
+    }
+
+    // ✅ Liste des annonces approuvees par l'admin
     
-        // ✅ Approuver une annonce (admin)
-        @PutMapping("/{id}/approuver")
-        public ResponseEntity<String> approuverAnnonce(@PathVariable Long id) {
-            boolean approuvee = annonceService.approuverAnnonce(id);
-            if (approuvee) {
-                return ResponseEntity.ok("Annonce approuvée avec succès.");
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        }
-        // ✅ Liste des annonces approuvees par l'admin
-        @GetMapping("/approuvees")
-public List<Annonce> getAnnoncesApprouvees() {
-    return annonceService.getAnnoncesApprouvees();
-}
-    
+    @GetMapping("/approuvees")
+    public List<Annonce> getAnnoncesApprouvees() {
+        return annonceService.getAnnoncesApprouvees();
+    }
+
 }

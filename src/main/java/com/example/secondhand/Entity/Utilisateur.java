@@ -38,7 +38,7 @@ public class Utilisateur implements org.springframework.security.core.userdetail
     private LocalDate dateInscription = LocalDate.now();
 
     @Enumerated(EnumType.STRING)
-    private Role role = Role.UTILISATEUR;
+    private Role role = Role.utilisateur;
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
     private List<Annonce> annonces;

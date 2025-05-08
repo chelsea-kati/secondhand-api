@@ -26,34 +26,37 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                // Public
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/annonces/approuvees").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/annonces/*").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/commentaires/annonce/*").permitAll()
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        // Public
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/annonces/approuvees").permitAll()
 
-                // UTILISATEUR
-                .requestMatchers(HttpMethod.POST,   "/api/annonces/**").hasRole("UTILISATEUR")
-                .requestMatchers(HttpMethod.PUT,    "/api/annonces/*").hasRole("UTILISATEUR")
-                .requestMatchers(HttpMethod.DELETE, "/api/annonces/*").hasRole("UTILISATEUR")
-                .requestMatchers("/api/favoris/**").hasRole("UTILISATEUR")
-                .requestMatchers(HttpMethod.POST,   "/api/commentaires/**").hasRole("UTILISATEUR")
-                .requestMatchers(HttpMethod.DELETE, "/api/commentaires/*").hasRole("UTILISATEUR")
+                        .requestMatchers(HttpMethod.GET, "/api/annonces/approuvees").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/annonces/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/commentaires/annonce/*").permitAll()
 
-                // ADMIN
-                .requestMatchers(HttpMethod.PUT,    "/api/annonces/*/approuver").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/annonces/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/favoris/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/commentaires/**").hasRole("ADMIN")
+                        // UTILISATEUR
+                        .requestMatchers(HttpMethod.POST, "/api/annonces/**").hasRole("UTILISATEUR")
+                        .requestMatchers(HttpMethod.PUT, "/api/annonces/*").hasRole("UTILISATEUR")
+                        .requestMatchers(HttpMethod.DELETE, "/api/annonces/*").hasRole("UTILISATEUR")
+                        .requestMatchers("/api/favoris/**").hasRole("UTILISATEUR")
+                        .requestMatchers(HttpMethod.POST, "/api/commentaires/**").hasRole("UTILISATEUR")
+                        .requestMatchers(HttpMethod.DELETE, "/api/commentaires/*").hasRole("UTILISATEUR")
 
-                // Toutes les autres requêtes nécessitent authentification
-                .anyRequest().authenticated()
-            )
-            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .userDetailsService(userDetailsService)
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                        // ADMIN
+                        .requestMatchers(HttpMethod.PUT, "/api/annonces/*/approuver").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/annonces/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/favoris/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/commentaires/**").hasRole("ADMIN")
+
+                        // Toutes les autres requêtes nécessitent authentification
+                        //.anyRequest().authenticated())
+                        .anyRequest().permitAll())
+
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .userDetailsService(userDetailsService)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
