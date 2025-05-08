@@ -30,7 +30,8 @@ public class AuthenticationService {
         utilisateur.setMotDePasse(passwordEncoder.encode(request.getPassword()));
         utilisateur.setTelephone(request.getTelephone());
         utilisateur.setAdresse(request.getAdresse());
-        utilisateur.setRole(Role.utilisateur);
+        //utilisateur.setRole(Role.utilisateur);
+        utilisateur.setRole(request.getRole() != null ? request.getRole() : Role.utilisateur);
         utilisateurRepository.save(utilisateur);
         String token = jwtService.generateToken(utilisateur.getEmail());
         return new AuthenticationResponse(token);
