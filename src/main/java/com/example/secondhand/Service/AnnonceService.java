@@ -33,6 +33,8 @@ public class AnnonceService {
             annonce.setTitre(annonceDetails.getTitre());
             annonce.setDescription(annonceDetails.getDescription());
             annonce.setPrix(annonceDetails.getPrix());
+            annonce.setCategorie(annonceDetails.getCategorie());
+            annonce.setLocalisation(annonceDetails.getLocalisation());
             // Mettez à jour d'autres champs si nécessaire
             return annonceRepository.save(annonce);
         } else {
