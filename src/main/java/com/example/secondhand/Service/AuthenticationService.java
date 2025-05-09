@@ -31,7 +31,7 @@ public class AuthenticationService {
         utilisateur.setTelephone(request.getTelephone());
         utilisateur.setAdresse(request.getAdresse());
         //utilisateur.setRole(Role.utilisateur);
-        utilisateur.setRole(request.getRole() != null ? request.getRole() : Role.utilisateur);
+        utilisateur.setRole(request.getRole() != null ? request.getRole() : Role.UTILISATEUR);
         utilisateurRepository.save(utilisateur);
         String token = jwtService.generateToken(utilisateur.getEmail());
         return new AuthenticationResponse(token);
