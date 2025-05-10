@@ -60,4 +60,5 @@ public class CommentaireService {
         return commentaireRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Commentaire introuvable"));
     }
+    
 }

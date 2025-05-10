@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/annonces/*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/commentaires/annonce/*").permitAll()
 
-                        // UTILISATEUR
+                        // routes UTILISATEUR (authentifié)
                         .requestMatchers(HttpMethod.POST, "/api/annonces/**").hasRole("UTILISATEUR")
                         .requestMatchers(HttpMethod.PUT, "/api/annonces/*").hasRole("UTILISATEUR")
                         .requestMatchers(HttpMethod.DELETE, "/api/annonces/*").hasRole("UTILISATEUR")
@@ -44,7 +44,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/commentaires/**").hasRole("UTILISATEUR")
                         .requestMatchers(HttpMethod.DELETE, "/api/commentaires/*").hasRole("UTILISATEUR")
 
-                        // ADMIN
+                        // routes ADMIN (authentifié)
                         .requestMatchers(HttpMethod.PUT, "/api/annonces/*/approuver").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/annonces/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/favoris/**").hasRole("ADMIN")

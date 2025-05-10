@@ -39,4 +39,9 @@ public class CommentaireController {
         Commentaire commentaire = commentaireService.getCommentaire(id);
         return ResponseEntity.ok(commentaire);
     }
+    @DeleteMapping("/{id}")
+public ResponseEntity<Void> supprimerCommentaire(@PathVariable Long id) {
+    commentaireService.supprimerCommentaire(id);
+    return ResponseEntity.noContent().build();
+}
 }
