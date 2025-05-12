@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './LoginPage.css'; // ✅ Assurez-vous que ce chemin est correct
+import './LoginPage.css';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // 👈 pour la redirection
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,11 +19,13 @@ function LoginPage() {
 
       const token = response.data.token;
       localStorage.setItem('token', token);
-      setMessage('Connexion réussie');
-      // ✅ Redirection future possible ici
+      setMessage('Connexion réussie ✅');
+      
+      // 👇 Rediriger vers le tableau de bord admin
+      navigate('/admin');
     } catch (error) {
       console.error(error);
-      setMessage('Échec de la connexion. Vérifiez vos identifiants.');
+      setMessage('Échec de la connexion ❌ Vérifiez vos identifiants.');
     }
   };
 
