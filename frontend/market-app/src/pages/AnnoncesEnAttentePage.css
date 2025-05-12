@@ -2,13 +2,14 @@
   max-width: 800px;
   margin: 2rem auto;
   padding: 1.5rem;
-  background-color: #f9f9ff;
+  background-color: #111;
+  color: white;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(100, 100, 255, 0.2);
 }
 
 .annonces-container h2 {
-  color: #3333aa;
+  color: #cef73b;
   margin-bottom: 1rem;
   text-align: center;
 }
@@ -47,21 +48,21 @@
 }
 
 .annonce-buttons button:first-child {
-  background-color: #4caf50;
+  background-color: #111;
   color: white;
 }
 
 .annonce-buttons button:first-child:hover {
-  background-color: #45a049;
+  background-color: #111;
 }
 
 .annonce-buttons button:last-child {
-  background-color: #f44336;
+  background-color: #aaa344;
   color: white;
 }
 
 .annonce-buttons button:last-child:hover {
-  background-color: #d32f2f;
+  background-color: #aaa344;
 }
 
 /* Responsive */
