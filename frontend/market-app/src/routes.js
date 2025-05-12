@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CreateAnnoncePage from './pages/CreateAnnoncePage';
+import AnnoncesEnAttentePage from './pages/AnnoncesEnAttentePage';
 
 // const AppRoutes = () => {
 //   return (
@@ -21,7 +22,7 @@ const routes = [
     { path: '/login', Component: LoginPage },
     {path: '/register', Component: RegisterPage},
     { path: '/AddAnnonce', Component: CreateAnnoncePage },
-    { path: "/admin/annonces-en-attente", Component: AnnoncesEnAttentePage },
+    { path: '/annonces-en-attente', Component: AnnoncesEnAttentePage },
   ];
   
   export default routes;
