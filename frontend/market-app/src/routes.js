@@ -21,6 +21,7 @@ const routes = [
     { path: '/', Component: HomePage },
     { path: '/login', Component: LoginPage },
     {path: '/register', Component: RegisterPage},
+      { path: '/admin', Component: AdminDashboardPage },
     { path: '/AddAnnonce', Component: CreateAnnoncePage },
     { path: '/annonces-en-attente', Component: AnnoncesEnAttentePage },
   ];

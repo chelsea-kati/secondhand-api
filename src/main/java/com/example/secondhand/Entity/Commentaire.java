@@ -44,7 +44,7 @@ public class Commentaire {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    private Commentaire parent;
+    private Commentaire parent; // c'est une réponse à un commentaire
 
     @JsonManagedReference
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)

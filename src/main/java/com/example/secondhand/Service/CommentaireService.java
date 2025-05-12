@@ -60,5 +60,8 @@ public class CommentaireService {
         return commentaireRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Commentaire introuvable"));
     }
-    
+    public void supprimerCommentaire(Long id) {
+        commentaireRepository.deleteById(id);
+    }
+
 }
