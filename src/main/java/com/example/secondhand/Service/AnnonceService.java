@@ -63,7 +63,9 @@ public class AnnonceService {
         }
         return false;
     }
-
+public List<Annonce> getAnnoncesApprouvees() {
+    return annonceRepository.findByApprouveeTrue();
+}
 public void supprimerAnnonce(Long id, Utilisateur utilisateurConnecte) {
     Annonce annonce = annonceRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Annonce non trouvée"));
