@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+//import com.tonpackage.model.Role; // adapte avec ton vrai chemin
+import com.example.secondhand.Enum.Role;
+
 
 import java.time.LocalDate;
 import java.util.List;

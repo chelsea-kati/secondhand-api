@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './SupprimerAnnoncesPage.css';
 
 const SupprimerAnnoncesPage = () => {
   const [annonces, setAnnonces] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
+  const [message, setMessage] = useState('');
 
   const token = localStorage.getItem('token');
 
@@ -21,15 +23,35 @@ const SupprimerAnnoncesPage = () => {
     );
   };
 
-  const handleDeleteSelected = () => {
-    selectedIds.forEach(id => {
-      axios.delete(`http://localhost:8080/api/annonces/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      }).catch(err => console.error(`Erreur suppression annonce ${id}`, err));
-    });
+//   const handleDeleteSelected = () => {
+//     selectedIds.forEach(id => {
+//       axios.delete(`http://localhost:8080/api/annonces/${id}`, {
+//         headers: { Authorization: `Bearer ${token}` }
+//       }).catch(err => console.error(`Erreur suppression annonce ${id}`, err));
+//     });
 
-    setAnnonces(prev => prev.filter(a => !selectedIds.includes(a.id)));
-    setSelectedIds([]);
+//     setAnnonces(prev => prev.filter(a => !selectedIds.includes(a.id)));
+//     setSelectedIds([]);
+//   };
+const handleDeleteSelected = async () => {
+    try {
+      await Promise.all(
+        selectedIds.map(id =>
+          axios.delete(`http://localhost:8080/api/annonces/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+        )
+      );
+
+      setAnnonces(prev => prev.filter(a => !selectedIds.includes(a.id)));
+      setSelectedIds([]);
+      setMessage('✅ Annonce(s) supprimée(s) avec succès');
+
+      // Disparition du message après 3 secondes
+      setTimeout(() => setMessage(''), 3000);
+    } catch (err) {
+      console.error('Erreur suppression annonce(s)', err);
+    }
   };
 
  return (

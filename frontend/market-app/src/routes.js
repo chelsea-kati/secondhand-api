@@ -6,6 +6,7 @@ import RegisterPage from './pages/RegisterPage';
 import CreateAnnoncePage from './pages/CreateAnnoncePage';
 import AnnoncesEnAttentePage from './pages/AnnoncesEnAttentePage';
 import AdminDashboardPage from'./pages/AdminDashboardPage ';
+import SupprimerAnnoncesPage from'./pages/SupprimerAnnoncesPage';
 
 // const AppRoutes = () => {
 //   return (
@@ -25,6 +26,7 @@ const routes = [
     { path: '/admin', Component: AdminDashboardPage },
     { path: '/AddAnnonce', Component: CreateAnnoncePage },
     { path: '/annonces-en-attente', Component: AnnoncesEnAttentePage },
+    { path: '/supprimer-annonces', Component: SupprimerAnnoncesPage },
   ];
   
   export default routes;

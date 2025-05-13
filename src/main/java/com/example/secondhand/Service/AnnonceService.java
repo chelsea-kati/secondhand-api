@@ -1,9 +1,13 @@
 package com.example.secondhand.Service;
 
 import com.example.secondhand.Entity.Annonce;
+import com.example.secondhand.Entity.Utilisateur;
+import com.example.secondhand.Enum.Role;
 import com.example.secondhand.Repository.AnnonceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -60,12 +64,22 @@ public class AnnonceService {
         return false;
     }
 
-    public void supprimerAnnonce(Long id) {
-        annonceRepository.deleteById(id);
+public void supprimerAnnonce(Long id, Utilisateur utilisateurConnecte) {
+    Annonce annonce = annonceRepository.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Annonce non trouvée"));
+
+    boolean estAuteur = annonce.getUtilisateur().getId().equals(utilisateurConnecte.getId());
+    boolean estAdmin = utilisateurConnecte.getRole() == Role.ADMIN;
+
+    if (!estAuteur && !estAdmin) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous ne pouvez supprimer que vos propres annonces.");
     }
-    public List<Annonce> getAnnoncesApprouvees() {
-        return annonceRepository.findByApprouveeTrue();
-    }
+
+    annonceRepository.delete(annonce);
+}
+
+
+
     
 
 }

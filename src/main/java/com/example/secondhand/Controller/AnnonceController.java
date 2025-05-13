@@ -43,11 +43,11 @@ public class AnnonceController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> supprimerAnnonce(@PathVariable Long id) {
-        annonceService.supprimerAnnonce(id);
-        return ResponseEntity.noContent().build();
-    }
+    // @DeleteMapping("/{id}")
+    // public ResponseEntity<Void> supprimerAnnonce(@PathVariable Long id) {
+    //     annonceService.supprimerAnnonce(id);
+    //     return ResponseEntity.noContent().build();
+    // }
 
     // ✅ Liste des annonces d'un utilisateur
     @GetMapping("/utilisateur/{id}")
