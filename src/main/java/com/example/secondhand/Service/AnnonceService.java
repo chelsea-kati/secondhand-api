@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +19,8 @@ import java.util.Optional;
 @Service
 
 public class AnnonceService {
+        private static final Logger logger = LoggerFactory.getLogger(AnnonceService.class);
+
     @Autowired
     private AnnonceRepository annonceRepository;
 
@@ -66,22 +72,48 @@ public class AnnonceService {
 public List<Annonce> getAnnoncesApprouvees() {
     return annonceRepository.findByApprouveeTrue();
 }
-public void supprimerAnnonce(Long id, Utilisateur utilisateurConnecte) {
-    Annonce annonce = annonceRepository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Annonce non trouvée"));
+// public void supprimerAnnonce(Long id, Utilisateur utilisateurConnecte) {
+//     Annonce annonce = annonceRepository.findById(id)
+//         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Annonce non trouvée"));
 
-    boolean estAuteur = annonce.getUtilisateur().getId().equals(utilisateurConnecte.getId());
-    boolean estAdmin = utilisateurConnecte.getRole() == Role.ADMIN;
+//     boolean estAuteur = annonce.getUtilisateur().getId().equals(utilisateurConnecte.getId());
+//     boolean estAdmin = utilisateurConnecte.getRole() == Role.ADMIN;
 
-    if (!estAuteur && !estAdmin) {
-        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous ne pouvez supprimer que vos propres annonces.");
+//     if (!estAuteur && !estAdmin) {
+//         throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous ne pouvez supprimer que vos propres annonces.");
+//     }
+
+//     annonceRepository.delete(annonce);
+
+    
+// }
+  public void supprimerAnnonce(Long id, Utilisateur utilisateurConnecte) {
+        logger.debug("🔍 Tentative de suppression d'annonce ID: {}", id);
+        logger.debug("👤 Utilisateur connecté: {}", utilisateurConnecte.getEmail());
+        logger.debug("🔐 Rôle de l'utilisateur: {}", utilisateurConnecte.getRole());
+
+        Annonce annonce = annonceRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Annonce non trouvée"));
+
+        boolean estAuteur = annonce.getUtilisateur().getId().equals(utilisateurConnecte.getId());
+        boolean estAdmin = utilisateurConnecte.getRole() == Role.ADMIN;
+
+        logger.debug("✅ Est auteur de l'annonce ? {}", estAuteur);
+        logger.debug("✅ Est admin ? {}", estAdmin);
+
+        if (!estAuteur && !estAdmin) {
+            logger.warn("⛔ Suppression refusée : ni auteur, ni admin.");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous ne pouvez supprimer que vos propres annonces.");
+        }
+
+        logger.debug("🗑 Suppression autorisée. Suppression de l'annonce...");
+        annonceRepository.delete(annonce);
+        logger.debug("✅ Annonce supprimée.");
     }
-
-    annonceRepository.delete(annonce);
 }
 
 
 
     
 
-}
+

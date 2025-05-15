@@ -3,9 +3,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
-
 import java.security.Key;
 import java.util.Date;
+import com.example.secondhand.Entity.Utilisateur;
+//import com.example.secondhand.Enum.Role;
 
 @Service
 
@@ -16,9 +17,11 @@ public class JwtService {
     private static final long EXPIRATION_TIME = 864_000_00; // 1 jour en millisecondes
 
     // Génère un token basé sur l'email
-    public String generateToken(String email) {
+    public String generateToken(Utilisateur utilisateur) {
         return Jwts.builder()
-                .setSubject(email)
+                //.setSubject(email)
+                .setSubject(utilisateur.getEmail())
+                .claim("role", utilisateur.getRole().name()) // 👉 Ajoute le rôle dans le payload
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key)

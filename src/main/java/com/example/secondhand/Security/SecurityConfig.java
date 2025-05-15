@@ -39,13 +39,15 @@ public class SecurityConfig {
                         // routes UTILISATEUR (authentifié)
                         .requestMatchers(HttpMethod.POST, "/api/annonces/**").hasRole("UTILISATEUR")
                         .requestMatchers(HttpMethod.PUT, "/api/annonces/*").hasRole("UTILISATEUR")
-                        .requestMatchers(HttpMethod.DELETE, "/api/annonces/*").hasRole("UTILISATEUR")
+                        //.requestMatchers(HttpMethod.DELETE, "/api/annonces/*").hasRole("UTILISATEUR")
                         .requestMatchers("/api/favoris/**").hasRole("UTILISATEUR")
                         .requestMatchers(HttpMethod.POST, "/api/commentaires/**").hasRole("UTILISATEUR")
                         .requestMatchers(HttpMethod.DELETE, "/api/commentaires/*").hasRole("UTILISATEUR")
 
                         // routes ADMIN (authentifié)
-                        .requestMatchers(HttpMethod.PUT, "/api/annonces/*/approuver").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/annonces/*").hasAnyRole("UTILISATEUR", "ADMIN")
+
+                        //.requestMatchers(HttpMethod.PUT, "/api/annonces/*/approuver").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/annonces/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/favoris/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/commentaires/**").hasRole("ADMIN")

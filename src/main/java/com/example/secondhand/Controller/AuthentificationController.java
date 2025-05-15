@@ -25,4 +25,8 @@ public class AuthentificationController {
         AuthenticationResponse response = authenticationService.authenticate(request);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/ping")
+public String ping() {
+    return "pong";
+}
 }
