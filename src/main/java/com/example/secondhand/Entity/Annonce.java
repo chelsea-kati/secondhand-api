@@ -3,7 +3,7 @@ package com.example.secondhand.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
-
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,4 +38,7 @@ public class Annonce {
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
     private Utilisateur utilisateur;
+
+    @OneToMany(mappedBy = "annonce", cascade = CascadeType.ALL) // AJOUT DU CASCADE
+    private List<Favori> favoris;// Relation ajoutée pour les favoris
 }
