@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import './SupprimerCommentairesPage.css';
 const SupprimerCommentairesPage = () => {
   const [commentaires, setCommentaires] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);

@@ -9,7 +9,7 @@ const AdminDashboardPage = () => {
       <p>Bienvenue dans l'espace d'administration. Choisissez une action :</p>
       <ul className="dashboard-actions">
         <li><Link to="/annonces-en-attente">📋 Approuver des annonces</Link></li>
-        <li><Link to="/supprimer-commentaires">🗑️ Supprimer des commentaires</Link></li>
+        <li><Link to="/supprimer-commentaire">🗑️ Supprimer des commentaires</Link></li>
         <li><Link to="/supprimer-annonces">🗑️ Supprimer des annonces</Link></li>
       </ul>
     </div>

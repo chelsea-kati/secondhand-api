@@ -7,6 +7,9 @@ import CreateAnnoncePage from './pages/CreateAnnoncePage';
 import AnnoncesEnAttentePage from './pages/AnnoncesEnAttentePage';
 import AdminDashboardPage from'./pages/AdminDashboardPage ';
 import SupprimerAnnoncesPage from'./pages/SupprimerAnnoncesPage';
+import SupprimerCommentairesPage from'./pages/SupprimerCommentairesPage';
+
+
 
 // const AppRoutes = () => {
 //   return (
@@ -27,6 +30,7 @@ const routes = [
     { path: '/AddAnnonce', Component: CreateAnnoncePage },
     { path: '/annonces-en-attente', Component: AnnoncesEnAttentePage },
     { path: '/supprimer-annonces', Component: SupprimerAnnoncesPage },
+    { path: '/supprimer-commentaire', Component: SupprimerCommentairesPage },
   ];
   
   export default routes;
