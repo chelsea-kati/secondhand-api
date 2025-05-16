@@ -25,7 +25,7 @@ function LoginPage() {
       navigate('/admin');
     } catch (error) {
       console.error(error);
-      setMessage('Échec de la connexion ❌ Vérifiez vos identifiants.');
+      setMessage('Échec de la connexion ❌ Vérifiez vos identifiants si vous etes un administrateur.');
     }
   };
 
