@@ -26,7 +26,7 @@ h2 {
 
 /* Liste de commentaires */
 .commentaire-item {
-  background-color: #1c1c1c;
+  background-color: #fff;
   border: 1px solid #aaa344;
   border-radius: 8px;
   padding: 15px;
@@ -52,7 +52,7 @@ h2 {
 }
 
 .commentaire-item span {
-  color: #cef73b;
+  color: #111;
   font-size: 1rem;
 }
 

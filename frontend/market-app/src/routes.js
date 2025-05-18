@@ -3,12 +3,13 @@
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import CreateAnnoncePage from './pages/CreateAnnoncePage';
+//import CreateAnnoncePage from './pages/CreateAnnoncePage';
 import AnnoncesEnAttentePage from './pages/AnnoncesEnAttentePage';
 import AdminDashboardPage from'./pages/AdminDashboardPage ';
 import SupprimerAnnoncesPage from'./pages/SupprimerAnnoncesPage';
 import SupprimerCommentairesPage from'./pages/SupprimerCommentairesPage';
-
+import ListeUtilisateursPage from'./pages/ListeUtilisateursPage';
+import ToutesAnnoncesPage from'./pages/ToutesAnnoncesPage';
 
 
 // const AppRoutes = () => {
@@ -27,10 +28,14 @@ const routes = [
     { path: '/login', Component: LoginPage },
     {path: '/register', Component: RegisterPage},
     { path: '/admin', Component: AdminDashboardPage },
-    { path: '/AddAnnonce', Component: CreateAnnoncePage },
+    //{ path: '/AddAnnonce', Component: CreateAnnoncePage },
     { path: '/annonces-en-attente', Component: AnnoncesEnAttentePage },
     { path: '/supprimer-annonces', Component: SupprimerAnnoncesPage },
     { path: '/supprimer-commentaire', Component: SupprimerCommentairesPage },
+    { path: '/UtilisateursList', Component: ListeUtilisateursPage },
+    { path: '/ToutesAnnoncesPage', Component: ToutesAnnoncesPage },
+
+
   ];
   
   export default routes;

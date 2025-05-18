@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './SupprimerCommentairesPage.css';
+
 const SupprimerCommentairesPage = () => {
   const [commentaires, setCommentaires] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
@@ -33,11 +34,11 @@ const SupprimerCommentairesPage = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>🗑️ Supprimer des commentaires</h2>
       {commentaires.length === 0 && <p>Aucun commentaire à afficher.</p>}
       {commentaires.map(commentaire => (
-        <div key={commentaire.id} style={{ borderBottom: '1px solid #ccc', padding: '10px' }}>
+        <div key={commentaire.id} className="commentaire-item">
           <input
             type="checkbox"
             checked={selectedIds.includes(commentaire.id)}
@@ -47,7 +48,7 @@ const SupprimerCommentairesPage = () => {
         </div>
       ))}
       {selectedIds.length > 0 && (
-        <button onClick={handleDeleteSelected} style={{ marginTop: '10px' }}>
+        <button onClick={handleDeleteSelected} className="delete-button">
           ❌ Supprimer la sélection ({selectedIds.length})
         </button>
       )}
