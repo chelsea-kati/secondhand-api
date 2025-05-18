@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './ToutesAnnoncesPage.css;'
 
 const ToutesAnnoncesPage = () => {
   const [annonces, setAnnonces] = useState([]);
