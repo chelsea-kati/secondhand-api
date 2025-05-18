@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './ToutesAnnoncesPage.css;'
+import './ToutesAnnoncesPage.css';
 
 const ToutesAnnoncesPage = () => {
   const [annonces, setAnnonces] = useState([]);
@@ -39,14 +39,14 @@ const ToutesAnnoncesPage = () => {
   };
 
   return (
-    <div className="admin-annonces-container">
+    <div>
       <h2>Toutes les annonces</h2>
       {annonces.length === 0 ? (
         <p>Aucune annonce trouvée.</p>
       ) : (
         <ul>
           {annonces.map((annonce) => (
-            <li key={annonce.id} style={{ marginBottom: '1rem', borderBottom: '1px solid #ccc' }}>
+            <li key={annonce.id}>
               <strong>{annonce.titre}</strong> - {annonce.description} ({annonce.approuvee ? "✅ Approuvée" : "⏳ En attente"})
               <div>
                 <button onClick={() => supprimerAnnonce(annonce.id)}>🗑️ Supprimer</button>
