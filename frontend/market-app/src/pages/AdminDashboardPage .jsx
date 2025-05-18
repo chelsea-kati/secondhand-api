@@ -13,7 +13,7 @@ const AdminDashboardPage = () => {
         <li><Link to="/supprimer-annonces"> Supprimer des annonces</Link></li>
         <li><Link to="/UtilisateursList">Affichage de touts les utilisateurs </Link></li>
         <li><Link to="/ToutesAnnoncesPage">Affichage de toutes les annonces(approuvées ou non)</Link></li>
-
+        <li><Link to="/CommentairesListPage">Affichage de touts les commentaires</Link></li>
 
       </ul>
     </div>

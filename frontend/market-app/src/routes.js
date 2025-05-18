@@ -10,6 +10,7 @@ import SupprimerAnnoncesPage from'./pages/SupprimerAnnoncesPage';
 import SupprimerCommentairesPage from'./pages/SupprimerCommentairesPage';
 import ListeUtilisateursPage from'./pages/ListeUtilisateursPage';
 import ToutesAnnoncesPage from'./pages/ToutesAnnoncesPage';
+import CommentairesListPage from './pages/CommentairesListPage';
 
 
 // const AppRoutes = () => {
@@ -34,6 +35,7 @@ const routes = [
     { path: '/supprimer-commentaire', Component: SupprimerCommentairesPage },
     { path: '/UtilisateursList', Component: ListeUtilisateursPage },
     { path: '/ToutesAnnoncesPage', Component: ToutesAnnoncesPage },
+    { path: '/CommentairesListPage', Component: CommentairesListPage },
 
 
   ];

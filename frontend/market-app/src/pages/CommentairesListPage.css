@@ -1,0 +1,54 @@
+.commentaires-container {
+  padding: 2rem;
+  background-color: #111; /* Fond noir profond */
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+.commentaires-container h2 {
+  text-align: center;
+  color: #cef73b; /* Vert citron */
+  margin-bottom: 2rem;
+}
+
+.commentaires-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.commentaires-container li {
+  background-color: #222;
+  border-left: 6px solid #aaa344; /* Or foncé */
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: #eee;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.commentaires-container li:hover {
+  transform: scale(1.01);
+}
+
+.commentaires-container strong {
+  color: #cef73b;
+}
+
+.commentaires-container p {
+  margin: 0.5rem 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .commentaires-container {
+    padding: 1rem;
+  }
+
+  .commentaires-container li {
+    font-size: 0.95rem;
+  }
+}
