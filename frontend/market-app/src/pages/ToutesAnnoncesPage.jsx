@@ -4,11 +4,11 @@ import './ToutesAnnoncesPage.css';
 
 const ToutesAnnoncesPage = () => {
   const [annonces, setAnnonces] = useState([]);
-
+  
   useEffect(() => {
     fetchAnnonces();
   }, []);
-
+  
   const fetchAnnonces = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -22,7 +22,7 @@ const ToutesAnnoncesPage = () => {
       console.error("Erreur lors du chargement des annonces", error);
     }
   };
-
+  
   const supprimerAnnonce = async (id) => {
     if (!window.confirm("Supprimer cette annonce ?")) return;
     try {
@@ -37,9 +37,10 @@ const ToutesAnnoncesPage = () => {
       console.error("Erreur lors de la suppression", error);
     }
   };
-
+  
   return (
-    <div>
+    /* Ajout de la classe admin-annonces-container à l'élément div parent */
+    <div className="admin-annonces-container">
       <h2>Toutes les annonces</h2>
       {annonces.length === 0 ? (
         <p>Aucune annonce trouvée.</p>
