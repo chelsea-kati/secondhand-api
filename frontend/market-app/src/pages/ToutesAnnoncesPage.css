@@ -43,7 +43,7 @@
 }
 
 .admin-annonces-container button {
-  background-color: #009999;
+  background-color: #4b5f04;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -54,5 +54,5 @@
 }
 
 .admin-annonces-container button:hover {
-  background-color: #007777;
+  background-color: #9fb846;
 }
