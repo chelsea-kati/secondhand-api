@@ -4,6 +4,7 @@ import './AnnoncesEnAttentePage.css';
 
 const AnnoncesEnAttentePage = () => {
   const [annonces, setAnnonces] = useState([]);
+  const[message, setMessage]= useState('');
 
   useEffect(() => {
     fetchAnnoncesNonApprouvees();
@@ -22,6 +23,7 @@ const AnnoncesEnAttentePage = () => {
       setAnnonces(nonApprouvees);
     } catch (error) {
       console.error("Erreur lors de la récupération des annonces :", error);
+      
     }
   };
 
@@ -33,6 +35,7 @@ const AnnoncesEnAttentePage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      setMessage="Annonce approuvée avec succès";
       fetchAnnoncesNonApprouvees(); // Rafraîchir
     } catch (error) {
       console.error("Erreur lors de l'approbation :", error);
@@ -47,6 +50,7 @@ const AnnoncesEnAttentePage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      setMessage=("Annonce supprimée avec succès");
       fetchAnnoncesNonApprouvees(); // Rafraîchir
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
