@@ -23,37 +23,37 @@ const ToutesAnnoncesPage = () => {
     }
   };
   
-  // const supprimerAnnonce = async (id) => {
-  //   if (!window.confirm("Supprimer cette annonce ?")) return;
-  //   try {
-  //     const token = localStorage.getItem("token");
-  //     await axios.delete(`http://localhost:8080/api/annonces/${id}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     fetchAnnonces();
-  //   } catch (error) {
-  //     console.error("Erreur lors de la suppression", error);
-  //   }
-  // };
-  const handleDelete = async (id) => {
-  // Convertir l'id en nombre si ce n'est pas déjà le cas
-  const numericId = Number(id);
-  console.log("Type de l'ID après conversion:", typeof numericId);
+  const supprimerAnnonce = async (id) => {
+    if (!window.confirm("Supprimer cette annonce ?")) return;
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:8080/api/annonces/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      fetchAnnonces();
+    } catch (error) {
+      console.error("Erreur lors de la suppression", error);
+    }
+  };
+//   const handleDelete = async (id) => {
+//   // Convertir l'id en nombre si ce n'est pas déjà le cas
+//   const numericId = Number(id);
+//   console.log("Type de l'ID après conversion:", typeof numericId);
   
-  try {
-    const token = localStorage.getItem("token");
-    await axios.delete(`http://localhost:8080/api/annonces/${numericId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    fetchAnnonces();
-  } catch (error) {
-    console.error("Erreur lors de la suppression", error);
-  }
-};
+//   try {
+//     const token = localStorage.getItem("token");
+//     await axios.delete(`http://localhost:8080/api/annonces/${numericId}`, {
+//       headers: {
+//         Authorization: `Bearer ${token}`
+//       }
+//     });
+//     fetchAnnonces();
+//   } catch (error) {
+//     console.error("Erreur lors de la suppression", error);
+//   }
+// };
   
   return (
     /* Ajout de la classe admin-annonces-container à l'élément div parent */
@@ -67,7 +67,7 @@ const ToutesAnnoncesPage = () => {
             <li key={annonce.id}>
               <strong>{annonce.titre}</strong> - {annonce.description} ({annonce.approuvee ? "✅ Approuvée" : "⏳ En attente"})
               <div>
-                <button onClick={() => handleDelete(annonce.id)}>🗑️ Supprimer</button>
+                <button onClick={() => supprimerAnnonce(annonce.id)}>🗑️ Supprimer</button>
               </div>
             </li>
           ))}
