@@ -6,7 +6,12 @@ import com.example.secondhand.Entity.Utilisateur;
 import com.example.secondhand.Repository.AnnonceRepository;
 import com.example.secondhand.Repository.CommentaireRepository;
 import com.example.secondhand.Repository.UtilisateurRepository;
+//import com.example.secondhand.Enum.Role;
+import org.springframework.http.HttpStatus;
+//import com.example.secondhand.Exception.ResourceNotFoundException;
+//import com.example.secondhand.Exception.UnauthorizedException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -60,7 +65,37 @@ public class CommentaireService {
         return commentaireRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Commentaire introuvable"));
     }
+    // public void supprimerCommentaire(Long id) {
+    //     commentaireRepository.deleteById(id);
+    // }
+    
+    
+     public List<Commentaire> obtenirToutesLesCommentaires() {
+        return commentaireRepository.findAll();
+    }
+        // Méthode simplifiée : supprime directement le commentaire sans vérification
     public void supprimerCommentaire(Long id) {
+        commentaireRepository.deleteById(id);
+    }
+    
+    // Nouvelle méthode : vérifie si l'utilisateur peut supprimer le commentaire
+   
+    public void supprimerCommentaire(Long id, String username, boolean estAdmin) {
+        Optional<Commentaire> commentaireOpt = commentaireRepository.findById(id);
+        
+        if (commentaireOpt.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Commentaire non trouvé");
+        }
+        
+        Commentaire commentaire = commentaireOpt.get();
+        
+        // Vérifier si l'utilisateur est le propriétaire ou un admin
+        boolean estProprietaire = commentaire.getUtilisateur().getUsername().equals(username);
+        
+        if (!estProprietaire && !estAdmin) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Non autorisé");
+        }
+        
         commentaireRepository.deleteById(id);
     }
 

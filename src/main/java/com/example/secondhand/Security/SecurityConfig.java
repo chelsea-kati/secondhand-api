@@ -30,8 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Public
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/annonces/approuvees").permitAll()
-
+                        //.requestMatchers(HttpMethod.GET, "/api/annonces/approuvees").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/annonces/approuvees").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/annonces/*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/commentaires/annonce/*").permitAll()
@@ -42,15 +41,15 @@ public class SecurityConfig {
                         //.requestMatchers(HttpMethod.DELETE, "/api/annonces/*").hasRole("UTILISATEUR")
                         .requestMatchers("/api/favoris/**").hasRole("UTILISATEUR")
                         .requestMatchers(HttpMethod.POST, "/api/commentaires/**").hasRole("UTILISATEUR")
-                        .requestMatchers(HttpMethod.DELETE, "/api/commentaires/*").hasRole("UTILISATEUR")
+                       // .requestMatchers(HttpMethod.DELETE, "/api/commentaires/*").hasRole("UTILISATEUR")
 
                         // routes ADMIN (authentifié)
                         .requestMatchers(HttpMethod.DELETE, "/api/annonces/*").hasAnyRole("UTILISATEUR", "ADMIN")
-
+                        .requestMatchers(HttpMethod.DELETE, "/api/commentaires/*").hasAnyRole("UTILISATEUR", "ADMIN")
                         //.requestMatchers(HttpMethod.PUT, "/api/annonces/*/approuver").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/annonces/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/favoris/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/commentaires/**").hasRole("ADMIN")
+                        //.requestMatchers(HttpMethod.DELETE, "/api/commentaires/**").hasRole("ADMIN")
 
                         // Toutes les autres requêtes nécessitent authentification
                         //.anyRequest().authenticated())

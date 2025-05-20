@@ -2,8 +2,8 @@ package com.example.secondhand.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "favori")
@@ -11,21 +11,18 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+// Ajouter l'annotation suivante qui résoudra les problèmes de références circulaires
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Favori {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @ManyToOne
-    @JsonBackReference
+    // Enlever @JsonBackReference car nous utilisons maintenant @JsonIdentityInfo
     private Utilisateur utilisateur;
-    // Un utilisateur peut ajouter plusieurs annonces en favori → @OneToMany
-
-    @ManyToOne(cascade = CascadeType.ALL) // pour s'assurer que la suppression d'une annonce entraîne
-    // la suppression de tous les favoris associés.
+    
+    @ManyToOne
+    // Enlever @JsonBackReference car nous utilisons maintenant @JsonIdentityInfo
     private Annonce annonce;
-    // Une annonce peut être ajoutée en favori par plusieurs utilisateurs →
-    // @ManyToOne
-
 }

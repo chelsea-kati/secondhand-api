@@ -4,6 +4,8 @@ import com.example.secondhand.Entity.Annonce;
 import com.example.secondhand.Entity.Utilisateur;
 import com.example.secondhand.Enum.Role;
 import com.example.secondhand.Repository.AnnonceRepository;
+import com.example.secondhand.Repository.UtilisateurRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,9 +26,25 @@ public class AnnonceService {
     @Autowired
     private AnnonceRepository annonceRepository;
 
-    public Annonce creerAnnonce(Annonce annonce) {
-        return annonceRepository.save(annonce);
-    }
+    // public Annonce creerAnnonce(Annonce annonce) {
+    //     return annonceRepository.save(annonce);
+    // }
+    @Autowired
+private UtilisateurRepository utilisateurRepository;
+
+public Annonce creerAnnonce(Annonce annonce) {
+    Long utilisateurId = annonce.getUtilisateur().getId();
+
+    // Récupérer l'utilisateur complet depuis la base
+    Utilisateur utilisateurComplet = utilisateurRepository.findById(utilisateurId)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
+    // Associer l'utilisateur complet à l'annonce
+    annonce.setUtilisateur(utilisateurComplet);
+
+    // Sauvegarder l'annonce
+    return annonceRepository.save(annonce);
+}
 
     public List<Annonce> obtenirToutesLesAnnonces() {
         return annonceRepository.findAll();

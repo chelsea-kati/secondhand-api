@@ -4,7 +4,7 @@ import './AnnoncesEnAttentePage.css';
 
 const AnnoncesEnAttentePage = () => {
   const [annonces, setAnnonces] = useState([]);
-  const[message, setMessage]= useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     fetchAnnoncesNonApprouvees();
@@ -18,12 +18,11 @@ const AnnoncesEnAttentePage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      // ⚠️ Ne garde que les non approuvées
       const nonApprouvees = response.data.filter(a => !a.approuvee);
       setAnnonces(nonApprouvees);
     } catch (error) {
       console.error("Erreur lors de la récupération des annonces :", error);
-      
+      setMessage("Erreur lors du chargement ❌");
     }
   };
 
@@ -35,10 +34,11 @@ const AnnoncesEnAttentePage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setMessage="Annonce approuvée avec succès";
-      fetchAnnoncesNonApprouvees(); // Rafraîchir
+      setMessage("Annonce approuvée avec succès ✅");
+      fetchAnnoncesNonApprouvees();
     } catch (error) {
       console.error("Erreur lors de l'approbation :", error);
+      setMessage("Erreur lors de l'approbation ❌");
     }
   };
 
@@ -50,15 +50,23 @@ const AnnoncesEnAttentePage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setMessage=("Annonce supprimée avec succès");
-      fetchAnnoncesNonApprouvees(); // Rafraîchir
+      setMessage("Annonce supprimée avec succès ✅");
+      fetchAnnoncesNonApprouvees();
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
+      setMessage("Erreur lors de la suppression ❌");
     }
   };
 
+
   return (
     <div className="annonces-container">
+         {message && (
+        <p style={{ color: message.includes("✅") ? "green" : "red", fontWeight: 'bold' }}>
+          {message}
+        </p>
+      )}
+
       <h2>Annonces en attente d’approbation</h2>
       {annonces.length === 0 ? (
         <p>Aucune annonce en attente.</p>
