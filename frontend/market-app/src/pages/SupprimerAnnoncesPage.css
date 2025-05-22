@@ -1,0 +1,60 @@
+.supprimer-annonces-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #111;
+  color: #cef73b;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgb(199, 241, 28);
+}
+
+.supprimer-annonces-container h2 {
+  text-align: center;
+  color: #aaa344;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.annonce-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #aaa344;
+  transition: background-color 0.2s ease;
+}
+
+.annonce-item:hover {
+  background-color: rgb(205, 248, 34);
+}
+
+.annonce-item input[type="checkbox"] {
+  margin-right: 1rem;
+  transform: scale(1.2);
+}
+
+.annonce-item span {
+  color: #111;
+  font-weight: bold;
+}
+
+.delete-button {
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.2rem;
+  background-color: #aab344;
+  color: #111;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #cec358;
+}
+
+.no-annonce {
+  text-align: center;
+  color: #aaa344;
+  margin-top: 2rem;
+}

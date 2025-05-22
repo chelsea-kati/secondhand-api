@@ -1,0 +1,76 @@
+/* AdminDashboardPage.css */
+
+.dashboard-container {
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #111; /* Noir profond */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa344; /* Texte en vert citron */
+}
+
+.dashboard-container h2 {
+  color: #cef73b;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.dashboard-container p {
+  margin-bottom: 2rem;
+  color: #aaa344; /* Or foncé */
+  text-align: center;
+  max-width: 600px;
+  font-size: 1.1rem;
+}
+
+.dashboard-actions {
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 450px;
+}
+
+.dashboard-actions li {
+  background-color: #222; /* Un ton plus clair que le fond */
+  border: 2px solid #aaa344;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-actions li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 15px rgba(206, 247, 59, 0.2);
+}
+
+.dashboard-actions a {
+  display: block;
+  padding: 1rem;
+  text-decoration: none;
+  color: #cef73b;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 12px;
+}
+
+.dashboard-actions a:hover {
+  background-color: #cef73b;
+  color: #111;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .dashboard-actions a {
+    padding: 0.9rem;
+    font-size: 1rem;
+  }
+}
