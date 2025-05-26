@@ -1,0 +1,29 @@
+.admin-navbar {
+  background-color: #111; /* fond sombre */
+  padding: 1rem;
+}
+
+.admin-navbar ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-navbar li {
+  display: inline;
+}
+
+.admin-navbar a {
+  color: #aaa344; /* couleur des liens */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.admin-navbar a:hover {
+  color: #cef73b; /* couleur au survol */
+  text-decoration: underline;
+}
