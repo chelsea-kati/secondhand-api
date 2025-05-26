@@ -19,7 +19,7 @@ const CommentairesListPage = () => {
   };
 
   return (
-    <div>
+    <div className="commentaires-container">
       <h2>Commentaires des utilisateurs</h2>
       {commentaires.length === 0 ? (
         <p>Aucun commentaire disponible.</p>

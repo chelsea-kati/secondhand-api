@@ -36,6 +36,8 @@ const AnnoncesEnAttentePage = () => {
       });
       setMessage("Annonce approuvée avec succès ✅");
       fetchAnnoncesNonApprouvees();
+    
+      
     } catch (error) {
       console.error("Erreur lors de l'approbation :", error);
       setMessage("Erreur lors de l'approbation ❌");
@@ -51,7 +53,9 @@ const AnnoncesEnAttentePage = () => {
         },
       });
       setMessage("Annonce supprimée avec succès ✅");
-      fetchAnnoncesNonApprouvees();
+      //fetchAnnoncesNonApprouvees();
+        // supprimer une annonce approuvee localement
+      setMessage(prev=> prev.filter(a=> a.id !==id));
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
       setMessage("Erreur lors de la suppression ❌");
