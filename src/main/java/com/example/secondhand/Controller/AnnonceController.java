@@ -4,10 +4,12 @@ import com.example.secondhand.Entity.Annonce;
 import com.example.secondhand.Security.CustomUserDetails;
 import com.example.secondhand.Entity.Utilisateur;
 import com.example.secondhand.Service.AnnonceService;
+import com.example.secondhand.dto.AnnonceDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import com.example.secondhand.Repository.UtilisateurRepository;
+import com.example.secondhand.Repository.AnnonceRepository;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/annonces")
@@ -23,7 +26,7 @@ public class AnnonceController {
     @Autowired
     private AnnonceService annonceService;
      @Autowired
-    private UtilisateurRepository utilisateurRepository; // ✅ Ajouté
+    private AnnonceRepository annonceRepository; // ✅ Ajouté
 
     @PostMapping
     public Annonce creerAnnonce(@RequestBody Annonce annonce) {
@@ -31,9 +34,22 @@ public class AnnonceController {
     }
 
     @GetMapping
-    public List<Annonce> obtenirToutesLesAnnonces() {
-        return annonceService.obtenirToutesLesAnnonces();
+    // public List<Annonce> obtenirToutesLesAnnonces() {
+    //     return annonceService.obtenirToutesLesAnnonces();
+    // }
+       public List<AnnonceDTO> obtenirToutesLesAnnonces() {
+        List<Annonce> annonces = annonceRepository.findAll();
+        return annonces.stream()
+                .map(this::convertDTO)
+                .collect(Collectors.toList());
     }
+    private AnnonceDTO convertDTO(Annonce annonce) {
+    AnnonceDTO dto = new AnnonceDTO();
+    dto.setId(annonce.getId());
+    dto.setTitre(annonce.getTitre());
+    dto.setDescription(annonce.getDescription());
+    return dto;
+}
 
     @GetMapping("/{id}")
     public ResponseEntity<Annonce> obtenirAnnonceParId(@PathVariable Long id) {

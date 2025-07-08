@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './AnnoncesEnAttentePage.css';
+import AdminNavbar from './AdminNavbar';
 
 const AnnoncesEnAttentePage = () => {
   const [annonces, setAnnonces] = useState([]);
@@ -13,7 +14,7 @@ const AnnoncesEnAttentePage = () => {
   const fetchAnnoncesNonApprouvees = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:8080/api/annonces", {
+      const response = await axios.get("http://localhost:8089/api/annonces", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -29,15 +30,14 @@ const AnnoncesEnAttentePage = () => {
   const approuverAnnonce = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.put(`http://localhost:8080/api/annonces/${id}/approuver`, {}, {
+      await axios.put(`http://localhost:8089/api/annonces/${id}/approuver`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setMessage("Annonce approuvée avec succès ✅");
-      fetchAnnoncesNonApprouvees();
-    
-      
+      // Supprimer localement l'annonce approuvée
+      setAnnonces(prev => prev.filter(a => a.id !== id));
     } catch (error) {
       console.error("Erreur lors de l'approbation :", error);
       setMessage("Erreur lors de l'approbation ❌");
@@ -47,49 +47,50 @@ const AnnoncesEnAttentePage = () => {
   const supprimerAnnonce = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:8080/api/annonces/${id}`, {
+      await axios.delete(`http://localhost:8089/api/annonces/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setMessage("Annonce supprimée avec succès ✅");
-      //fetchAnnoncesNonApprouvees();
-        // supprimer une annonce approuvee localement
-      setMessage(prev=> prev.filter(a=> a.id !==id));
+      // Supprimer localement l'annonce supprimée
+      setAnnonces(prev => prev.filter(a => a.id !== id));
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
       setMessage("Erreur lors de la suppression ❌");
     }
   };
 
-
   return (
-    <div className="annonces-container">
-         {message && (
-        <p style={{ color: message.includes("✅") ? "green" : "red", fontWeight: 'bold' }}>
-          {message}
-        </p>
-      )}
+    <>
+      <AdminNavbar />
+      <div className="annonces-container">
+        {message && (
+          <p style={{ color: message.includes("✅") ? "green" : "red", fontWeight: 'bold' }}>
+            {message}
+          </p>
+        )}
 
-      <h2>Annonces en attente d’approbation</h2>
-      {annonces.length === 0 ? (
-        <p>Aucune annonce en attente.</p>
-      ) : (
-        <ul>
-          {annonces.map((annonce) => (
-            <li key={annonce.id} className="annonce-item">
-              <strong>{annonce.titre}</strong> - {annonce.description}
-              <div className="annonce-buttons">
-                {!annonce.approuvee && (
-                  <button onClick={() => approuverAnnonce(annonce.id)}>✅ Approuver</button>
-                )}
-                <button onClick={() => supprimerAnnonce(annonce.id)}>🗑️ Supprimer</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+        <h2>Annonces en attente d’approbation</h2>
+        {annonces.length === 0 ? (
+          <p>Aucune annonce en attente.</p>
+        ) : (
+          <ul>
+            {annonces.map((annonce) => (
+              <li key={annonce.id} className="annonce-item">
+                <strong>{annonce.titre}</strong> - {annonce.description}
+                <div className="annonce-buttons">
+                  {!annonce.approuvee && (
+                    <button onClick={() => approuverAnnonce(annonce.id)}>✅ Approuver</button>
+                  )}
+                  <button onClick={() => supprimerAnnonce(annonce.id)}>🗑️ Supprimer</button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
   );
 };
 

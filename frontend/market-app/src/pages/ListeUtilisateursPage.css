@@ -1,0 +1,59 @@
+/* ListeUtilisateursPage.css */
+
+.admin-users-container {
+  padding: 20px;
+  background-color: #111;
+  color: #cef73b;
+  min-height: 100vh;
+}
+
+.admin-users-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #cef73b;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #aaa344;
+  color: #111;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #111;
+}
+
+th {
+  background-color: #cef73b;
+  color: #111;
+}
+
+tr:nth-child(even) {
+  background-color: #d4d083;
+}
+
+tr:hover {
+  background-color: #cef73b;
+  color: #111;
+}
+
+button {
+  padding: 6px 10px;
+  margin: 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #cef73b;
+}

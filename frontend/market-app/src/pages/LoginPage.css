@@ -1,49 +1,75 @@
+/* LoginPage.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #111;
+  color: #cef73b;
+}
+
 .login-container {
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(120deg, #f0f0f0, #d3e0ea);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  background-color: #111;
 }
 
-.login-card {
-  background: white;
-  padding: 2.5rem 3rem;
+.login-form {
+  background-color: #aaa344;
+  padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px #cef73b;
   width: 100%;
   max-width: 400px;
+  color: #111;
 }
 
-.login-card h2 {
+.login-form h2 {
   text-align: center;
-  margin-bottom: 2rem;
-  color: #333;
+  color: #111;
+  margin-bottom: 20px;
 }
 
-.login-card input {
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: #111;
+}
+
+.input-group input {
   width: 100%;
-  padding: 1rem;
-  margin-bottom: 1.2rem;
-  border: 1px solid #ccc;
+  padding: 10px;
+  border: 1px solid #111;
   border-radius: 5px;
-  font-size: 1rem;
+  background-color: #fff;
+  color: #111;
+  font-size: 14px;
 }
 
-.login-card button {
+button[type="submit"] {
   width: 100%;
-  padding: 1rem;
-  background-color: #007bff;
-  color: white;
+  padding: 10px;
+  background-color: #cef73b;
+  color: #111;
   border: none;
-  font-size: 1rem;
-  font-weight: bold;
   border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.login-card button:hover {
-  background-color: #0056b3;
+button[type="submit"]:hover {
+  background-color: #a8dc29;
+}
+
+.message {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+  color: #111;
 }

@@ -13,7 +13,7 @@ const ToutesAnnoncesPage = () => {
   const fetchAnnonces = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:8080/api/annonces", {
+      const response = await axios.get("http://localhost:8089/api/annonces", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,7 +28,7 @@ const ToutesAnnoncesPage = () => {
     if (!window.confirm("Voulez-vous vraiment supprimer cette annonce ?")) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:8080/api/annonces/${id}`, {
+      await axios.delete(`http://localhost:8089/api/annonces/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
